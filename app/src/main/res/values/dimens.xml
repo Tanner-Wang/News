@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="layout_standard_padding">16dp</dimen>
     <dimen name="list_item_height">98dp</dimen>
     <dimen name="simple_paddingAndMargin">2dp</dimen>
     <dimen name="titleTextView_padding">16dp</dimen>
@@ -9,4 +10,6 @@
     <dimen name="view_height">38dp</dimen>
     <dimen name="view_textSize">18sp</dimen>
     <dimen name="empty_view_textSize">26sp</dimen>
+    <dimen name="refresh_width">72dp</dimen>
+    <dimen name="refresh_height">40dp</dimen>
 </resources>

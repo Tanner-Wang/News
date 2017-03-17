@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
+import static com.example.administrator.news.MainActivity.holder;
 
 
 public class NewsAdapter extends ArrayAdapter<News> {
@@ -28,14 +27,14 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         final News currentNews = getItem(position);
 
-        TextView webTitle = (TextView) convertView.findViewById(R.id.web_title);
-        webTitle.setText(currentNews.getmWebTitle());
+        holder.webTitle = (TextView) convertView.findViewById(R.id.web_title);
+        holder.webTitle.setText(currentNews.getmWebTitle());
 
-        TextView sectionName = (TextView) convertView.findViewById(R.id.section_name);
-        sectionName.setText(currentNews.getmSectionName());
+        holder.sectionName = (TextView) convertView.findViewById(R.id.section_name);
+        holder.sectionName.setText(currentNews.getmSectionName());
 
-        TextView webPublicationDate = (TextView) convertView.findViewById(R.id.web_publication_date);
-        webPublicationDate.setText(currentNews.getmWebPublicationDate());
+       holder.webPublicationDate = (TextView) convertView.findViewById(R.id.web_publication_date);
+        holder.webPublicationDate.setText(currentNews.getmWebPublicationDate());
 
         return convertView;
     }

@@ -31,37 +31,39 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     private TextView mEmptyStateView;
 
+    static ViewHolder holder = new ViewHolder();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Find a reference to the {@link ListView} in the layout
-        ListView newsesListView = (ListView) findViewById(R.id.list);
+        holder.newsesListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateView = (TextView) findViewById(R.id.empty_view);
-        newsesListView.setEmptyView(mEmptyStateView);
+        holder.newsesListView.setEmptyView( mEmptyStateView);
 
 
-        // Create a new adapter that takes an empty list of earthquakes as input
+        // Create a new adapter that takes an empty list of books as input
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        newsesListView.setAdapter(mAdapter);
+        holder.newsesListView.setAdapter(mAdapter);
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
-        // to open a website with more information about the selected earthquake.
-        newsesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // to open a website with more information about the selected book.
+        holder.newsesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current earthquake that was clicked on
+                // Find the current book that was clicked on
                 News currentNews = mAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri newsUri = Uri.parse(currentNews.getmUrl());
 
-                // Create a new intent to view the earthquake URI
+                // Create a new intent to view the book URI
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
                 // Send the intent to launch a new activity
@@ -91,7 +93,30 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             mEmptyStateView.setText(R.string.no_internet_connection);
         }
 
+            holder.refresh = (TextView) findViewById(R.id.refresh_button);
+        holder.refresh.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    refreshLoader();
+                }
+            });
+
+
     }
+
+    static class ViewHolder{
+        ListView newsesListView;
+        TextView mEmptyStateView;
+        TextView refresh;
+        TextView webPublicationDate;
+        TextView webTitle;
+        TextView sectionName;
+    }
+
+    private void refreshLoader(){
+        getLoaderManager().restartLoader(EARTHQUAKE_LOADER_ID, null, this);
+    }
+
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
@@ -103,10 +128,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         View mLoading = findViewById(R.id.in_loading);
         mLoading.setVisibility(View.GONE);
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous book data
         mAdapter.clear();
         mEmptyStateView.setText(R.string.empty_view_text);
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of {@link book}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (newses != null && !newses.isEmpty()) {
             mAdapter.addAll(newses);
