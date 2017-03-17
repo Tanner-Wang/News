@@ -36,6 +36,6 @@
         android:layout_marginBottom="@dimen/layout_standard_padding"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="Refresh"
+        android:text="@string/refresh"
         android:textSize="@dimen/view_textSize" />
 </RelativeLayout>
